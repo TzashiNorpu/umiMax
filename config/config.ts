@@ -1,38 +1,16 @@
 // https://umijs.org/config/
-import { defineConfig } from 'umi';
+import { defineConfig } from '@umijs/max';
 import { join } from 'path';
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
-
 const { REACT_APP_ENV } = process.env;
 
 export default defineConfig({
-  hash: true,
   antd: {},
-  dva: {
-    hmr: true,
-  },
-  layout: {
-    // https://umijs.org/zh-CN/plugins/plugin-layout
-    locale: true,
-    siderWidth: 208,
-    ...defaultSettings,
-  },
-  // https://umijs.org/zh-CN/plugins/plugin-locale
-  locale: {
-    // default zh-CN
-    default: 'zh-CN',
-    antd: true,
-    // default true, when it is true, will use `navigator.language` overwrite default
-    baseNavigator: true,
-  },
-  dynamicImport: {
-    loading: '@ant-design/pro-layout/es/PageLoading',
-  },
-  targets: {
-    ie: 11,
-  },
-  // umi routes: https://umijs.org/docs/routing
+  access: {},
+  model: {},
+  initialState: {},
+  request: {},
   routes: [
     {
       path: '/user',
@@ -316,7 +294,26 @@ export default defineConfig({
       component: '404',
     },
   ],
-  access: {},
+  npmClient: 'pnpm',
+  hash: true,
+  dva: {},
+  layout: {
+    // https://umijs.org/zh-CN/plugins/plugin-layout
+    locale: true,
+    siderWidth: 208,
+    ...defaultSettings,
+  },
+  // https://umijs.org/zh-CN/plugins/plugin-locale
+  locale: {
+    // default zh-CN
+    default: 'zh-CN',
+    antd: true,
+    // default true, when it is true, will use `navigator.language` overwrite default
+    baseNavigator: true,
+  },
+  targets: {
+    ie: 11,
+  },
   // Theme for antd: https://ant.design/docs/react/customize-theme-cn
   theme: {
     // 如果不想要 configProvide 动态设置主题需要把这个设置为 default
@@ -326,7 +323,7 @@ export default defineConfig({
   },
   // esbuild is father build tools
   // https://umijs.org/plugins/plugin-esbuild
-  esbuild: {},
+  // esbuild: {},
   title: false,
   ignoreMomentLocale: true,
   proxy: proxy[REACT_APP_ENV || 'dev'],
@@ -334,7 +331,7 @@ export default defineConfig({
     basePath: '/',
   },
   // Fast Refresh 热更新
-  fastRefresh: {},
+  fastRefresh: true,
   openAPI: [
     {
       requestLibPath: "import { request } from 'umi'",
@@ -345,14 +342,14 @@ export default defineConfig({
     },
     {
       requestLibPath: "import { request } from 'umi'",
-      schemaPath: 'https://gw.alipayobjects.com/os/antfincdn/CA1dOm%2631B/openapi.json',
+      schemaPath:
+        'https://gw.alipayobjects.com/os/antfincdn/CA1dOm%2631B/openapi.json',
       projectName: 'swagger',
     },
   ],
-  nodeModulesTransform: {
+  /*nodeModulesTransform: {
     type: 'none',
-  },
+  }, */
   mfsu: {},
-  webpack5: {},
-  exportStatic: {},
+  // exportStatic: {},
 });
