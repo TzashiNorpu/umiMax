@@ -332,13 +332,14 @@ export default defineConfig({
   },
   // Fast Refresh 热更新
   fastRefresh: true,
+  plugins: ['@umijs/max-plugin-openapi'],
   openAPI: [
     {
       requestLibPath: "import { request } from 'umi'",
       // 或者使用在线的版本
       // schemaPath: "https://gw.alipayobjects.com/os/antfincdn/M%24jrzTTYJN/oneapi.json"
       schemaPath: join(__dirname, 'oneapi.json'),
-      mock: false,
+      mock: true,
     },
     {
       requestLibPath: "import { request } from 'umi'",
@@ -350,6 +351,9 @@ export default defineConfig({
   /*nodeModulesTransform: {
     type: 'none',
   }, */
+  mock: {
+    include: ['src/pages/**/_mock.ts'],
+  },
   mfsu: {},
   // exportStatic: {},
 });
