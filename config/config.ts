@@ -300,6 +300,9 @@ export default defineConfig({
   layout: {
     // https://umijs.org/zh-CN/plugins/plugin-layout
     locale: true,
+    menuRender: false,
+    menuHeaderRender: false,
+
     siderWidth: 208,
     ...defaultSettings,
   },
@@ -351,6 +354,7 @@ export default defineConfig({
   /*nodeModulesTransform: {
     type: 'none',
   }, */
+  
   mock: {
     include: ['src/pages/**/_mock.ts'],
   },

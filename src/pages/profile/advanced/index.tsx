@@ -29,7 +29,6 @@ import type { AdvancedProfileData } from './data.d';
 import { queryAdvancedProfile } from './service';
 import styles from './style.less';
 
-const { Step } = Steps;
 const ButtonGroup = Button.Group;
 
 const menu = (
@@ -58,7 +57,7 @@ const action = (
           <Dropdown.Button
             type="primary"
             icon={<DownOutlined />}
-            overlay={mobileMenu}
+            menu={mobileMenu}
             placement="bottomRight"
           >
             主操作
@@ -70,7 +69,7 @@ const action = (
           <ButtonGroup>
             <Button>操作一</Button>
             <Button>操作二</Button>
-            <Dropdown overlay={menu} placement="bottomRight">
+            <Dropdown menu={menu} placement="bottomRight">
               <Button>
                 <EllipsisOutlined />
               </Button>
@@ -275,12 +274,28 @@ const Advanced: FC = () => {
                   direction={isMobile ? 'vertical' : 'horizontal'}
                   progressDot={customDot}
                   current={1}
-                >
-                  <Step title="创建项目" description={desc1} />
-                  <Step title="部门初审" description={desc2} />
-                  <Step title="财务复核" />
-                  <Step title="完成" />
-                </Steps>
+                  items = {[
+                    {
+                      title:"创建项目",
+                      description:`${desc1}` 
+                    },
+                    {
+                      title:"部门初审",
+                      description:`${desc2}` 
+                    },
+                    {
+                      title:"财务复核",
+                    },
+                    {
+                      title:"完成",
+                    }
+                  ]}
+                />
+                  // {/* <Step title="创建项目" description={desc1} />
+                  // <Step title="部门初审" description={desc2} />
+                  // <Step title="财务复核" />
+                  // <Step title="完成" /> */}
+                // </Steps>
               )}
             </RouteContext.Consumer>
           </Card>

@@ -1,4 +1,4 @@
-import { useIntl } from 'umi';
+import { useIntl } from '@umijs/max';
 import { DefaultFooter } from '@ant-design/pro-layout';
 
 const Footer: React.FC = () => {
