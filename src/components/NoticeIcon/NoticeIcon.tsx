@@ -1,14 +1,12 @@
 import { BellOutlined } from '@ant-design/icons';
-import { Badge, Spin, Tabs } from 'antd';
+import { Badge, Button, Popover, Spin, Tabs } from 'antd';
 import classNames from 'classnames';
+import { Tab } from 'rc-tabs/lib/interface';
 import useMergedState from 'rc-util/es/hooks/useMergedState';
 import React from 'react';
-import HeaderDropdown from '../HeaderDropdown';
 import type { NoticeIconTabProps } from './NoticeList';
 import NoticeList from './NoticeList';
 import styles from './index.less';
-
-const { TabPane } = Tabs;
 
 export type NoticeIconProps = {
   count?: number;
@@ -49,7 +47,8 @@ const NoticeIcon: React.FC<NoticeIconProps> & {
     if (!children) {
       return null;
     }
-    const panes: React.ReactNode[] = [];
+    const panes: Tab[] = [];
+
     React.Children.forEach(
       children,
       (child: React.ReactElement<NoticeIconTabProps>): void => {
@@ -58,12 +57,15 @@ const NoticeIcon: React.FC<NoticeIconProps> & {
         }
         const { list, title, count, tabKey, showClear, showViewMore } =
           child.props;
+
         const len = list && list.length ? list.length : 0;
         const msgCount = count || count === 0 ? count : len;
         const tabTitle: string =
           msgCount > 0 ? `${title} (${msgCount})` : title;
-        panes.push(
-          <TabPane tab={tabTitle} key={tabKey}>
+        panes.push({
+          label: tabTitle,
+          key: tabKey,
+          children: (
             <NoticeList
               clearText={clearText}
               viewMoreText={viewMoreText}
@@ -80,16 +82,35 @@ const NoticeIcon: React.FC<NoticeIconProps> & {
               showViewMore={showViewMore}
               title={title}
             />
-          </TabPane>,
-        );
+          ),
+        });
       },
     );
+    {
+      /* <TabPane tab={tabTitle} key={tabKey}>
+            <NoticeList
+              clearText={clearText}
+              viewMoreText={viewMoreText}
+              list={list}
+              tabKey={tabKey}
+              onClear={(): void => onClear && onClear(title, tabKey)}
+              onClick={(item): void =>
+                onItemClick && onItemClick(item, child.props)
+              }
+              onViewMore={(event): void =>
+                onViewMore && onViewMore(child.props, event)
+              }
+              showClear={showClear}
+              showViewMore={showViewMore}
+              title={title}
+            />
+          </TabPane>, */
+    }
+
     return (
       <>
         <Spin spinning={loading} delay={300}>
-          <Tabs className={styles.tabs} onChange={onTabChange}>
-            {panes}
-          </Tabs>
+          <Tabs className={styles.tabs} onChange={onTabChange} items={panes} />
         </Spin>
       </>
     );
@@ -101,6 +122,7 @@ const NoticeIcon: React.FC<NoticeIconProps> & {
     value: props.popupVisible,
     onChange: props.onPopupVisibleChange,
   });
+
   const noticeButtonClass = classNames(className, styles.noticeButton);
   const notificationBox = getNotificationBox();
   const NoticeBellIcon = bell || <BellOutlined className={styles.icon} />;
@@ -120,18 +142,34 @@ const NoticeIcon: React.FC<NoticeIconProps> & {
   }
 
   return (
-    <HeaderDropdown
+    <Popover
       placement="bottomRight"
-      menu={notificationBox}
-      overlayClassName={styles.popover}
       trigger={['click']}
+      content={notificationBox}
       open={visible}
       onOpenChange={setVisible}
+      overlayClassName={styles.popover}
     >
       {trigger}
-    </HeaderDropdown>
+    </Popover>
   );
+  // return <Tabs items={items} />;
+  // return (
+  // <HeaderDropdown
+  //   placement="bottomRight"
+  //   menu={{ items: notificationBox }}
+  //   dropdownRender={(menu) => <div className="dropdown-content">{menu}</div>}
+  //   overlayClassName={styles.popover}
+  //   trigger={['click']}
+  //   open={visible}
+  //   onOpenChange={setVisible}
+  // >
+  //   {trigger}
+  // </HeaderDropdown>
+  // );
 };
+{
+}
 
 NoticeIcon.defaultProps = {
   emptyImage: '/assets/notice.svg',

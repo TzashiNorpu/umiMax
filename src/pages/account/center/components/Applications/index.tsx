@@ -4,10 +4,11 @@ import {
   EllipsisOutlined,
   ShareAltOutlined,
 } from '@ant-design/icons';
-import { useRequest } from 'umi';
-import { Avatar, Card, Dropdown, List, Menu, Tooltip } from 'antd';
-import React from 'react';
+import type { MenuProps } from 'antd';
+import { Avatar, Card, Dropdown, List, Tooltip } from 'antd';
 import numeral from 'numeral';
+import React from 'react';
+import { useRequest } from 'umi';
 import type { ListItemDataType } from '../../data.d';
 import { queryFakeList } from '../../service';
 import stylesApplications from './index.less';
@@ -46,25 +47,76 @@ const Applications: React.FC = () => {
     });
   });
 
-  const itemMenu = (
+  const items: MenuProps['items'] = [
+    {
+      key: '1',
+      label: (
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.alipay.com/"
+        >
+          1st menu item
+        </a>
+      ),
+    },
+    {
+      key: '2',
+      label: (
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.taobao.com/"
+        >
+          2nd menu item
+        </a>
+      ),
+    },
+    {
+      key: '3',
+      label: (
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.tmall.com/"
+        >
+          3d menu item
+        </a>
+      ),
+    },
+  ];
+
+  /* const itemMenu = (
     <Menu>
       <Menu.Item>
-        <a target="_blank" rel="noopener noreferrer" href="https://www.alipay.com/">
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.alipay.com/"
+        >
           1st menu item
         </a>
       </Menu.Item>
       <Menu.Item>
-        <a target="_blank" rel="noopener noreferrer" href="https://www.taobao.com/">
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.taobao.com/"
+        >
           2nd menu item
         </a>
       </Menu.Item>
       <Menu.Item>
-        <a target="_blank" rel="noopener noreferrer" href="https://www.tmall.com/">
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.tmall.com/"
+        >
           3d menu item
         </a>
       </Menu.Item>
     </Menu>
-  );
+  ); */
   const CardInfo: React.FC<{
     activeUser: React.ReactNode;
     newUser: React.ReactNode;
@@ -101,12 +153,15 @@ const Applications: React.FC = () => {
               <Tooltip title="分享" key="share">
                 <ShareAltOutlined />
               </Tooltip>,
-              <Dropdown overlay={itemMenu} key="ellipsis">
+              <Dropdown menu={{ items }} key="ellipsis">
                 <EllipsisOutlined />
               </Dropdown>,
             ]}
           >
-            <Card.Meta avatar={<Avatar size="small" src={item.avatar} />} title={item.title} />
+            <Card.Meta
+              avatar={<Avatar size="small" src={item.avatar} />}
+              title={item.title}
+            />
             <div className={stylesApplications.cardItemContent}>
               <CardInfo
                 activeUser={formatWan(item.activeUser)}

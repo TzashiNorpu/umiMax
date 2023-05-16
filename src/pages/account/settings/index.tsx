@@ -1,13 +1,13 @@
-import React, { useState, useRef, useLayoutEffect } from 'react';
 import { GridContent } from '@ant-design/pro-layout';
+import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import BaseView from './components/base';
 import BindingView from './components/binding';
 import NotificationView from './components/notification';
 import SecurityView from './components/security';
-import styles from './style.less';
 
-const { Item } = Menu;
+import styles from './style.less';
 
 type SettingsStateKeys = 'base' | 'security' | 'binding' | 'notification';
 type SettingsState = {
@@ -56,9 +56,40 @@ const Settings: React.FC = () => {
     };
   }, [dom.current]);
 
-  const getMenu = () => {
-    return Object.keys(menuMap).map((item) => <Item key={item}>{menuMap[item]}</Item>);
-  };
+  type MenuItem = Required<MenuProps>['items'][number];
+
+  function getItem(
+    label: React.ReactNode,
+    key?: React.Key | null,
+    icon?: React.ReactNode,
+    children?: MenuItem[],
+    type?: 'group',
+  ): MenuItem {
+    return {
+      key,
+      icon,
+      children,
+      label,
+      type,
+    } as MenuItem;
+  }
+
+  /*   const items: MenuItem[] = [
+    getItem('Option 1', '1'),
+    getItem('Option 2', '2'),
+    getItem('Option 3', '3'),
+    getItem('Option 4', '4'),
+  ]; */
+
+  const items: MenuItem[] = Object.keys(menuMap).map((item) =>
+    getItem(menuMap[item], item),
+  );
+
+  /* const getMenu = () => {
+    return Object.keys(menuMap).map((item) => (
+      <Item key={item}>{menuMap[item]}</Item>
+    ));
+  }; */
 
   const renderChildren = () => {
     const { selectKey } = initConfig;
@@ -96,9 +127,10 @@ const Settings: React.FC = () => {
                 selectKey: key as SettingsStateKeys,
               });
             }}
-          >
-            {getMenu()}
-          </Menu>
+            items={items}
+          />
+          {/* {getMenu()}
+          </Menu> */}
         </div>
         <div className={styles.right}>
           <div className={styles.title}>{menuMap[initConfig.selectKey]}</div>

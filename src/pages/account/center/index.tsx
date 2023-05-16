@@ -1,15 +1,20 @@
-import { PlusOutlined, HomeOutlined, ContactsOutlined, ClusterOutlined } from '@ant-design/icons';
-import { Avatar, Card, Col, Divider, Input, Row, Tag } from 'antd';
-import React, { useState, useRef } from 'react';
+import {
+  ClusterOutlined,
+  ContactsOutlined,
+  HomeOutlined,
+  PlusOutlined,
+} from '@ant-design/icons';
 import { GridContent } from '@ant-design/pro-layout';
-import { Link, useRequest } from 'umi';
+import { Avatar, Card, Col, Divider, Input, Row, Tag } from 'antd';
+import React, { useRef, useState } from 'react';
 import type { RouteChildrenProps } from 'react-router';
-import Projects from './components/Projects';
-import Articles from './components/Articles';
+import { Link, useRequest } from 'umi';
+import styles from './Center.less';
 import Applications from './components/Applications';
+import Articles from './components/Articles';
+import Projects from './components/Projects';
 import type { CurrentUser, TagType, tabKeyType } from './data.d';
 import { queryCurrent } from './service';
-import styles from './Center.less';
 
 const operationTabList = [
   {
@@ -58,8 +63,14 @@ const TagList: React.FC<{ tags: CurrentUser['tags'] }> = ({ tags }) => {
 
   const handleInputConfirm = () => {
     let tempsTags = [...newTags];
-    if (inputValue && tempsTags.filter((tag) => tag.label === inputValue).length === 0) {
-      tempsTags = [...tempsTags, { key: `new-${tempsTags.length}`, label: inputValue }];
+    if (
+      inputValue &&
+      tempsTags.filter((tag) => tag.label === inputValue).length === 0
+    ) {
+      tempsTags = [
+        ...tempsTags,
+        { key: `new-${tempsTags.length}`, label: inputValue },
+      ];
     }
     setNewTags(tempsTags);
     setInputVisible(false);
@@ -102,7 +113,11 @@ const Center: React.FC<RouteChildrenProps> = () => {
   });
 
   //  渲染用户信息
-  const renderUserInfo = ({ title, group, geographic }: Partial<CurrentUser>) => {
+  const renderUserInfo = ({
+    title,
+    group,
+    geographic,
+  }: Partial<CurrentUser>) => {
     return (
       <div className={styles.detail}>
         <p>

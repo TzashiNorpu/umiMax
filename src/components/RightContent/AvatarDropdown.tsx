@@ -4,7 +4,8 @@ import {
   SettingOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import { Avatar, Menu, Spin } from 'antd';
+import type { MenuProps } from 'antd';
+import { Avatar, Spin } from 'antd';
 import { parse } from 'query-string';
 import { stringify } from 'querystring';
 import type { MenuInfo } from 'rc-menu/lib/interface';
@@ -12,6 +13,7 @@ import React, { useCallback } from 'react';
 import { history, useModel } from 'umi';
 import HeaderDropdown from '../HeaderDropdown';
 import styles from './index.less';
+
 export type GlobalHeaderRightProps = {
   menu?: boolean;
 };
@@ -37,9 +39,9 @@ const loginOut = async () => {
 
 const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
   const { initialState, setInitialState } = useModel('@@initialState');
-
   const onMenuClick = useCallback(
     (event: MenuInfo) => {
+      console.log(event);
       const { key } = event;
       if (key === 'logout') {
         setInitialState((s) => ({ ...s, currentUser: undefined }));
@@ -73,9 +75,35 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
     return loading;
   }
 
-  const menuHeaderDropdown = (
-    <Menu className={styles.menu} selectedKeys={[]} onClick={onMenuClick}>
-      {menu && (
+  const items: MenuProps['items'] = [
+    {
+      label: '个人中心',
+      key: 'center',
+      icon: <UserOutlined />,
+    },
+    {
+      label: '个人设置',
+      key: 'settings',
+      icon: <SettingOutlined />,
+    },
+    {
+      type: 'divider',
+    },
+    {
+      label: '退出登录',
+      key: 'logout',
+      icon: <LogoutOutlined />,
+    },
+  ];
+
+  /*   const menuHeaderDropdown = (
+    <Menu
+      className={styles.menu}
+      selectedKeys={[]}
+      onClick={onMenuClick}
+      items={items}
+    >
+       {menu && (
         <Menu.Item key="center">
           <UserOutlined />
           个人中心
@@ -92,11 +120,18 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
       <Menu.Item key="logout">
         <LogoutOutlined />
         退出登录
-      </Menu.Item>
+      </Menu.Item> 
     </Menu>
-  );
+  ); */
   return (
-    <HeaderDropdown menu={menuHeaderDropdown}>
+    <HeaderDropdown
+      menu={{
+        items,
+        onClick: onMenuClick,
+        className: styles.menu,
+        selectedKeys: [],
+      }}
+    >
       <span className={`${styles.action} ${styles.account}`}>
         <Avatar
           size="small"
@@ -111,3 +146,15 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
 };
 
 export default AvatarDropdown;
+
+{
+  /* <span className={`${styles.action} ${styles.account}`}>
+        <Avatar
+          size="small"
+          className={styles.avatar}
+          src={currentUser.avatar}
+          alt="avatar"
+        />
+        <span className={`${styles.name} anticon`}>{currentUser.name}</span>
+      </span> */
+}
