@@ -79,7 +79,7 @@ const Basic: FC = () => {
     if (index === basicGoods.length) {
       obj.props.colSpan = 0;
     }
-    return obj;
+    return value;
   };
 
   const goodsColumns: ProColumns<BasicGood>[] = [
@@ -91,13 +91,22 @@ const Basic: FC = () => {
         if (index < basicGoods.length) {
           return <span>{text}</span>;
         }
-        return {
-          children: <span style={{ fontWeight: 600 }}>总计</span>,
-          props: {
-            colSpan: 4,
-          },
-        };
+        return <span style={{ fontWeight: 600 }}>总计</span>;
+        // return {
+        //   children: <span style={{ fontWeight: 600 }}>总计</span>,
+        //   props: {
+        //     colSpan: 4,
+        //   },
+        // };
       },
+      /* onCell: (_: any, index: number) => {
+        if (index >= basicGoods.length) {
+          return {
+            colSpan: 4,
+          };
+        }
+        return {};
+      }, */
     },
     {
       title: '商品名称',
@@ -158,7 +167,9 @@ const Basic: FC = () => {
           <Descriptions.Item label="用户姓名">付小小</Descriptions.Item>
           <Descriptions.Item label="联系电话">18100000000</Descriptions.Item>
           <Descriptions.Item label="常用快递">菜鸟仓储</Descriptions.Item>
-          <Descriptions.Item label="取货地址">浙江省杭州市西湖区万塘路18号</Descriptions.Item>
+          <Descriptions.Item label="取货地址">
+            浙江省杭州市西湖区万塘路18号
+          </Descriptions.Item>
           <Descriptions.Item label="备注">无</Descriptions.Item>
         </Descriptions>
         <Divider style={{ marginBottom: 32 }} />

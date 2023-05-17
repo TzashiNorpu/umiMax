@@ -1,14 +1,14 @@
-import type { FC } from 'react';
 import {
   ModalForm,
-  ProFormSelect,
   ProFormDateTimePicker,
+  ProFormSelect,
   ProFormText,
   ProFormTextArea,
 } from '@ant-design/pro-form';
+import { Button, Result } from 'antd';
+import type { FC } from 'react';
 import type { BasicListItemDataType } from '../data.d';
 import styles from '../style.less';
-import { Button, Result } from 'antd';
 
 type OperationModalProps = {
   done: boolean;
@@ -25,7 +25,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
   }
   return (
     <ModalForm<BasicListItemDataType>
-      visible={visible}
+      open={visible}
       title={done ? null : `任务${current ? '编辑' : '添加'}`}
       className={styles.standardListForm}
       width={640}

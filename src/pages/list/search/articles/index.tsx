@@ -1,7 +1,11 @@
-import { LikeOutlined, LoadingOutlined, MessageOutlined, StarOutlined } from '@ant-design/icons';
+import {
+  LikeOutlined,
+  LoadingOutlined,
+  MessageOutlined,
+  StarOutlined,
+} from '@ant-design/icons';
 import { Button, Card, Col, Form, List, Row, Select, Tag } from 'antd';
-import type { FC } from 'react';
-import React from 'react';
+import React, { FC } from 'react';
 import { useRequest } from 'umi';
 import ArticleListContent from './components/ArticleListContent';
 import StandardFormRow from './components/StandardFormRow';
@@ -144,7 +148,11 @@ const Articles: FC = () => {
           </StandardFormRow>
           <StandardFormRow title="owner" grid>
             <FormItem name="owner" noStyle>
-              <Select mode="multiple" placeholder="选择 owner" style={{ minWidth: '6rem' }}>
+              <Select
+                mode="multiple"
+                placeholder="选择 owner"
+                style={{ minWidth: '6rem' }}
+              >
                 {owners.map((owner) => (
                   <Option key={owner.id} value={owner.id}>
                     {owner.name}
@@ -160,14 +168,20 @@ const Articles: FC = () => {
             <Row gutter={16}>
               <Col xl={8} lg={10} md={12} sm={24} xs={24}>
                 <FormItem {...formItemLayout} label="活跃用户" name="user">
-                  <Select placeholder="不限" style={{ maxWidth: 200, width: '100%' }}>
+                  <Select
+                    placeholder="不限"
+                    style={{ maxWidth: 200, width: '100%' }}
+                  >
                     <Option value="lisa">李三</Option>
                   </Select>
                 </FormItem>
               </Col>
               <Col xl={8} lg={10} md={12} sm={24} xs={24}>
                 <FormItem {...formItemLayout} label="好评度" name="rate">
-                  <Select placeholder="不限" style={{ maxWidth: 200, width: '100%' }}>
+                  <Select
+                    placeholder="不限"
+                    style={{ maxWidth: 200, width: '100%' }}
+                  >
                     <Option value="good">优秀</Option>
                   </Select>
                 </FormItem>

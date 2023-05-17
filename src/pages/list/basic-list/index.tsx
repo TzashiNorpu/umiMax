@@ -1,5 +1,3 @@
-import type { FC } from 'react';
-import React, { useState } from 'react';
 import { DownOutlined, PlusOutlined } from '@ant-design/icons';
 import {
   Avatar,
@@ -15,13 +13,20 @@ import {
   Radio,
   Row,
 } from 'antd';
+import type { FC } from 'react';
+import React, { useState } from 'react';
 
 import { PageContainer } from '@ant-design/pro-layout';
-import { useRequest } from 'umi';
 import moment from 'moment';
+import { useRequest } from 'umi';
 import OperationModal from './components/OperationModal';
-import { addFakeList, queryFakeList, removeFakeList, updateFakeList } from './service';
 import type { BasicListItemDataType } from './data.d';
+import {
+  addFakeList,
+  queryFakeList,
+  removeFakeList,
+  updateFakeList,
+} from './service';
 import styles from './style.less';
 
 const RadioButton = Radio.Button;
@@ -55,7 +60,12 @@ const ListContent = ({
       <p>{moment(createdAt).format('YYYY-MM-DD HH:mm')}</p>
     </div>
     <div className={styles.listContentItem}>
-      <Progress percent={percent} status={status} strokeWidth={6} style={{ width: 180 }} />
+      <Progress
+        percent={percent}
+        status={status}
+        strokeWidth={6}
+        style={{ width: 180 }}
+      />
     </div>
   </div>
 );
@@ -63,7 +73,9 @@ const ListContent = ({
 export const BasicList: FC = () => {
   const [done, setDone] = useState<boolean>(false);
   const [visible, setVisible] = useState<boolean>(false);
-  const [current, setCurrent] = useState<Partial<BasicListItemDataType> | undefined>(undefined);
+  const [current, setCurrent] = useState<
+    Partial<BasicListItemDataType> | undefined
+  >(undefined);
 
   const {
     data: listData,
@@ -110,7 +122,10 @@ export const BasicList: FC = () => {
     postRun('remove', { id });
   };
 
-  const editAndDelete = (key: string | number, currentItem: BasicListItemDataType) => {
+  const editAndDelete = (
+    key: string | number,
+    currentItem: BasicListItemDataType,
+  ) => {
     if (key === 'edit') showEditModal(currentItem);
     else if (key === 'delete') {
       Modal.confirm({
@@ -130,7 +145,11 @@ export const BasicList: FC = () => {
         <RadioButton value="progress">进行中</RadioButton>
         <RadioButton value="waiting">等待中</RadioButton>
       </RadioGroup>
-      <Search className={styles.extraContentSearch} placeholder="请输入" onSearch={() => ({})} />
+      <Search
+        className={styles.extraContentSearch}
+        placeholder="请输入"
+        onSearch={() => ({})}
+      />
     </div>
   );
 
@@ -211,7 +230,9 @@ export const BasicList: FC = () => {
                   ]}
                 >
                   <List.Item.Meta
-                    avatar={<Avatar src={item.logo} shape="square" size="large" />}
+                    avatar={
+                      <Avatar src={item.logo} shape="square" size="large" />
+                    }
                     title={<a href={item.href}>{item.title}</a>}
                     description={item.subDescription}
                   />

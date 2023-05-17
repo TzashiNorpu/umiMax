@@ -1,5 +1,5 @@
-import React from 'react';
 import { Modal } from 'antd';
+import React from 'react';
 
 type CreateFormProps = {
   modalVisible: boolean;
@@ -13,12 +13,10 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
     <Modal
       destroyOnClose
       title="新建规则"
-      visible={modalVisible}
+      open={modalVisible}
       onCancel={() => onCancel()}
       footer={null}
-    >
-      {props.children}
-    </Modal>
+    ></Modal>
   );
 };
 

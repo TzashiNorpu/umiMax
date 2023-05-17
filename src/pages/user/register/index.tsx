@@ -1,8 +1,18 @@
-import type { FC } from 'react';
-import { useState, useEffect } from 'react';
-import { Form, Button, Col, Input, Popover, Progress, Row, Select, message } from 'antd';
+import {
+  Button,
+  Col,
+  Form,
+  Input,
+  Popover,
+  Progress,
+  Row,
+  Select,
+  message,
+} from 'antd';
 import type { Store } from 'antd/es/form/interface';
-import { Link, useRequest, history } from 'umi';
+import type { FC } from 'react';
+import { useEffect, useState } from 'react';
+import { Link, history, useRequest } from 'umi';
 import type { StateType } from './service';
 import { fakeRegister } from './service';
 
@@ -79,7 +89,9 @@ const Register: FC = () => {
     return 'poor';
   };
 
-  const { loading: submitting, run: register } = useRequest<{ data: StateType }>(fakeRegister, {
+  const { loading: submitting, run: register } = useRequest<{
+    data: StateType;
+  }>(fakeRegister, {
     manual: true,
     onSuccess: (data, params) => {
       if (data.status === 'ok') {
@@ -185,7 +197,7 @@ const Register: FC = () => {
           }
           overlayStyle={{ width: 240 }}
           placement="right"
-          visible={visible}
+          open={visible}
         >
           <FormItem
             name="password"
@@ -200,7 +212,11 @@ const Register: FC = () => {
               },
             ]}
           >
-            <Input size="large" type="password" placeholder="至少6位密码，区分大小写" />
+            <Input
+              size="large"
+              type="password"
+              placeholder="至少6位密码，区分大小写"
+            />
           </FormItem>
         </Popover>
         <FormItem
@@ -218,7 +234,12 @@ const Register: FC = () => {
           <Input size="large" type="password" placeholder="确认密码" />
         </FormItem>
         <InputGroup compact>
-          <Select size="large" value={prefix} onChange={changePrefix} style={{ width: '20%' }}>
+          <Select
+            size="large"
+            value={prefix}
+            onChange={changePrefix}
+            style={{ width: '20%' }}
+          >
             <Option value="86">+86</Option>
             <Option value="87">+87</Option>
           </Select>

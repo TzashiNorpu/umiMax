@@ -1,7 +1,7 @@
 import { DingdingOutlined } from '@ant-design/icons';
-import { Button, Card, Steps, Result, Descriptions } from 'antd';
-import { Fragment } from 'react';
 import { GridContent } from '@ant-design/pro-layout';
+import { Button, Card, Descriptions, Result, Steps } from 'antd';
+import { Fragment } from 'react';
 
 import styles from './index.less';
 
@@ -28,21 +28,37 @@ const desc2 = (
     </div>
   </div>
 );
-
+const items = [];
 const content = (
   <>
     <Descriptions title="项目名称">
       <Descriptions.Item label="项目 ID">23421</Descriptions.Item>
       <Descriptions.Item label="负责人">曲丽丽</Descriptions.Item>
-      <Descriptions.Item label="生效时间">2016-12-12 ~ 2017-12-12</Descriptions.Item>
+      <Descriptions.Item label="生效时间">
+        2016-12-12 ~ 2017-12-12
+      </Descriptions.Item>
     </Descriptions>
     <br />
-    <Steps progressDot current={1}>
-      <Step title={<span style={{ fontSize: 14 }}>创建项目</span>} description={desc1} />
-      <Step title={<span style={{ fontSize: 14 }}>部门初审</span>} description={desc2} />
-      <Step title={<span style={{ fontSize: 14 }}>财务复核</span>} />
-      <Step title={<span style={{ fontSize: 14 }}>完成</span>} />
-    </Steps>
+    <Steps
+      progressDot
+      current={1}
+      items={[
+        {
+          title: <span style={{ fontSize: 14 }}>创建项目</span>,
+          description: desc1,
+        },
+        {
+          title: <span style={{ fontSize: 14 }}>部门初审</span>,
+          description: desc2,
+        },
+        {
+          title: <span style={{ fontSize: 14 }}>财务复核</span>,
+        },
+        {
+          title: <span style={{ fontSize: 14 }}>完成</span>,
+        },
+      ]}
+    ></Steps>
   </>
 );
 

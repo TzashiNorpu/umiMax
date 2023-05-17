@@ -1,13 +1,13 @@
-import React from 'react';
-import { Modal } from 'antd';
 import {
+  ProFormDateTimePicker,
+  ProFormRadio,
   ProFormSelect,
   ProFormText,
   ProFormTextArea,
   StepsForm,
-  ProFormRadio,
-  ProFormDateTimePicker,
 } from '@ant-design/pro-form';
+import { Modal } from 'antd';
+import React from 'react';
 import type { TableListItem } from '../data';
 
 export type FormValueType = {
@@ -38,9 +38,10 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
             bodyStyle={{
               padding: '32px 40px 48px',
             }}
+            forceRender
             destroyOnClose
             title="规则配置"
-            visible={props.updateModalVisible}
+            open={props.updateModalVisible}
             footer={submitter}
             onCancel={() => {
               props.onCancel();
