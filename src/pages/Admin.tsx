@@ -1,8 +1,8 @@
-import React from 'react';
 import { HeartTwoTone, SmileTwoTone } from '@ant-design/icons';
-import { Card, Typography, Alert } from 'antd';
 import { PageHeader } from '@ant-design/pro-layout';
-import { useIntl } from 'umi';
+import { useIntl } from '@umijs/max';
+import { Alert, Card, Typography } from 'antd';
+import React from 'react';
 
 const Admin: React.FC = () => {
   const intl = useIntl();
@@ -11,12 +11,14 @@ const Admin: React.FC = () => {
       content={intl.formatMessage({
         id: 'pages.admin.subPage.title',
         defaultMessage: 'This page can only be viewed by admin',
-      })}   >
+      })}
+    >
       <Card>
         <Alert
           message={intl.formatMessage({
             id: 'pages.welcome.alertMessage',
-            defaultMessage: 'Faster and stronger heavy-duty components have been released.',
+            defaultMessage:
+              'Faster and stronger heavy-duty components have been released.',
           })}
           type="success"
           showIcon
@@ -27,12 +29,17 @@ const Admin: React.FC = () => {
           }}
         />
         <Typography.Title level={2} style={{ textAlign: 'center' }}>
-          <SmileTwoTone /> Ant Design Pro <HeartTwoTone twoToneColor="#eb2f96" /> You
+          <SmileTwoTone /> Ant Design Pro{' '}
+          <HeartTwoTone twoToneColor="#eb2f96" /> You
         </Typography.Title>
       </Card>
       <p style={{ textAlign: 'center', marginTop: 24 }}>
         Want to add more pages? Please refer to{' '}
-        <a href="https://pro.ant.design/docs/block-cn" target="_blank" rel="noopener noreferrer">
+        <a
+          href="https://pro.ant.design/docs/block-cn"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           use block
         </a>
         。

@@ -1,7 +1,8 @@
 import { PageContainer } from '@ant-design/pro-layout';
+import { Outlet, history, matchPath } from '@umijs/max';
 import { Input } from 'antd';
-import type { FC } from 'react';
-import { history } from 'umi';
+import { FC, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 type SearchProps = {
   match: {
@@ -28,19 +29,31 @@ const tabList = [
   },
 ];
 
-const Search: FC<SearchProps> = (props) => {
+const Search: FC<SearchProps> = () => {
+  const [tabKey, setTabKey] = useState('articles');
+  let location = useLocation();
+  useEffect(() => {
+    const m = matchPath({ path: 'list/search/:type' }, location.pathname);
+    setTabKey(m?.params.type as string);
+  }, [location]);
+
   const handleTabChange = (key: string) => {
-    const { match } = props;
-    const url = match.url === '/' ? '' : match.url;
+    setTabKey(key);
+
+    const match = matchPath(
+      { path: 'list/search/:type' },
+      window.location.pathname,
+    );
+    const url = match?.pathname.replace(match.params.type as string, '');
     switch (key) {
       case 'articles':
-        history.push(`${url}/articles`);
+        history.push(`${url}articles`);
         break;
       case 'applications':
-        history.push(`${url}/applications`);
+        history.push(`${url}applications`);
         break;
       case 'projects':
-        history.push(`${url}/projects`);
+        history.push(`${url}projects`);
         break;
       default:
         break;
@@ -52,15 +65,23 @@ const Search: FC<SearchProps> = (props) => {
     console.log(value);
   };
 
-  const getTabKey = () => {
-    const { match, location } = props;
-    const url = match.path === '/' ? '' : match.path;
-    const tabKey = location.pathname.replace(`${url}/`, '');
-    if (tabKey && tabKey !== '/') {
-      return tabKey;
-    }
-    return 'articles';
-  };
+  // const getTabKey = () => {
+  //   const match = matchPath(
+  //     { path: 'list/search/:type' },
+  //     window.location.pathname,
+  //   );
+  //   // const { match, location } = props;
+  //   // const url = match?.pathname === '/' ? '' : match?.pathname;
+  //   // console.log('----', url, '----', location.pathname);
+
+  //   location.pathname.replace(`${match?.pathname}`, '');
+  //   const tabKey = match?.params.type;
+  //   console.log('***', tabKey);
+  //   if (tabKey && tabKey !== '/') {
+  //     return tabKey;
+  //   }
+  //   return 'articles';
+  // };
 
   return (
     <PageContainer
@@ -76,10 +97,11 @@ const Search: FC<SearchProps> = (props) => {
         </div>
       }
       tabList={tabList}
-      tabActiveKey={getTabKey()}
+      tabActiveKey={tabKey}
+      // tabActiveKey={getTabKey()}
       onTabChange={handleTabChange}
     >
-      {props.children}
+      <Outlet />
     </PageContainer>
   );
 };

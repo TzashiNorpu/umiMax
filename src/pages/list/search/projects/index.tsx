@@ -17,7 +17,6 @@ const getKey = (id: string, index: number) => `${id}-${index}`;
 
 const Projects: FC = () => {
   const { data, loading, run } = useRequest((values: any) => {
-    console.log('form data', values);
     return queryFakeList({
       count: 8,
     });
@@ -41,7 +40,11 @@ const Projects: FC = () => {
       dataSource={list}
       renderItem={(item) => (
         <List.Item>
-          <Card className={styles.card} hoverable cover={<img alt={item.title} src={item.cover} />}>
+          <Card
+            className={styles.card}
+            hoverable
+            cover={<img alt={item.title} src={item.cover} />}
+          >
             <Card.Meta
               title={<a>{item.title}</a>}
               description={
@@ -76,6 +79,8 @@ const Projects: FC = () => {
       sm: { span: 16 },
     },
   };
+  // const props = useOutletContext();
+  // props.onChange('projects');
 
   return (
     <div className={styles.coverCardList}>
@@ -110,14 +115,20 @@ const Projects: FC = () => {
             <Row gutter={16}>
               <Col lg={8} md={10} sm={10} xs={24}>
                 <FormItem {...formItemLayout} label="作者" name="author">
-                  <Select placeholder="不限" style={{ maxWidth: 200, width: '100%' }}>
+                  <Select
+                    placeholder="不限"
+                    style={{ maxWidth: 200, width: '100%' }}
+                  >
                     <Option value="lisa">王昭君</Option>
                   </Select>
                 </FormItem>
               </Col>
               <Col lg={8} md={10} sm={10} xs={24}>
                 <FormItem {...formItemLayout} label="好评度" name="rate">
-                  <Select placeholder="不限" style={{ maxWidth: 200, width: '100%' }}>
+                  <Select
+                    placeholder="不限"
+                    style={{ maxWidth: 200, width: '100%' }}
+                  >
                     <Option value="good">优秀</Option>
                     <Option value="normal">普通</Option>
                   </Select>

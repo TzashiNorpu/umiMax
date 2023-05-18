@@ -117,6 +117,9 @@ const Articles: FC = () => {
     </div>
   );
 
+  // const props = useOutletContext();
+  // props.onChange('articles');
+
   return (
     <>
       <Card bordered={false}>

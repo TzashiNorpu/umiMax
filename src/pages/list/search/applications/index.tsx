@@ -4,11 +4,22 @@ import {
   EllipsisOutlined,
   ShareAltOutlined,
 } from '@ant-design/icons';
-import { Avatar, Card, Col, Dropdown, Form, List, Menu, Row, Select, Tooltip } from 'antd';
+import { useRequest } from '@umijs/max';
+import {
+  Avatar,
+  Card,
+  Col,
+  Dropdown,
+  Form,
+  List,
+  Menu,
+  Row,
+  Select,
+  Tooltip,
+} from 'antd';
 import numeral from 'numeral';
 import type { FC } from 'react';
 import React from 'react';
-import { useRequest } from 'umi';
 import StandardFormRow from './components/StandardFormRow';
 import TagSelect from './components/TagSelect';
 import type { ListItemDataType } from './data.d';
@@ -68,7 +79,6 @@ const CardInfo: React.FC<{
 
 export const Applications: FC<Record<string, any>> = () => {
   const { data, loading, run } = useRequest((values: any) => {
-    console.log('form data', values);
     return queryFakeList({
       count: 8,
     });
@@ -79,22 +89,37 @@ export const Applications: FC<Record<string, any>> = () => {
   const itemMenu = (
     <Menu>
       <Menu.Item>
-        <a target="_blank" rel="noopener noreferrer" href="https://www.alipay.com/">
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.alipay.com/"
+        >
           1st menu item
         </a>
       </Menu.Item>
       <Menu.Item>
-        <a target="_blank" rel="noopener noreferrer" href="https://www.taobao.com/">
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.taobao.com/"
+        >
           2nd menu item
         </a>
       </Menu.Item>
       <Menu.Item>
-        <a target="_blank" rel="noopener noreferrer" href="https://www.tmall.com/">
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.tmall.com/"
+        >
           3d menu item
         </a>
       </Menu.Item>
     </Menu>
   );
+
+  // const props = useOutletContext();
+  // props.onChange('applications');
 
   return (
     <div className={styles.filterCardList}>
@@ -126,14 +151,20 @@ export const Applications: FC<Record<string, any>> = () => {
             <Row gutter={16}>
               <Col lg={8} md={10} sm={10} xs={24}>
                 <Form.Item {...formItemLayout} name="author" label="作者">
-                  <Select placeholder="不限" style={{ maxWidth: 200, width: '100%' }}>
+                  <Select
+                    placeholder="不限"
+                    style={{ maxWidth: 200, width: '100%' }}
+                  >
                     <Option value="lisa">王昭君</Option>
                   </Select>
                 </Form.Item>
               </Col>
               <Col lg={8} md={10} sm={10} xs={24}>
                 <Form.Item {...formItemLayout} name="rate" label="好评度">
-                  <Select placeholder="不限" style={{ maxWidth: 200, width: '100%' }}>
+                  <Select
+                    placeholder="不限"
+                    style={{ maxWidth: 200, width: '100%' }}
+                  >
                     <Option value="good">优秀</Option>
                     <Option value="normal">普通</Option>
                   </Select>
@@ -177,7 +208,10 @@ export const Applications: FC<Record<string, any>> = () => {
                 </Dropdown>,
               ]}
             >
-              <Card.Meta avatar={<Avatar size="small" src={item.avatar} />} title={item.title} />
+              <Card.Meta
+                avatar={<Avatar size="small" src={item.avatar} />}
+                title={item.title}
+              />
               <div className={styles.cardItemContent}>
                 <CardInfo
                   activeUser={formatWan(item.activeUser)}

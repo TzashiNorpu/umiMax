@@ -5,8 +5,6 @@ import { Fragment } from 'react';
 
 import styles from './index.less';
 
-const { Step } = Steps;
-
 const desc1 = (
   <div className={styles.title}>
     <div style={{ margin: '8px 0 4px' }}>
@@ -28,7 +26,6 @@ const desc2 = (
     </div>
   </div>
 );
-const items = [];
 const content = (
   <>
     <Descriptions title="项目名称">
