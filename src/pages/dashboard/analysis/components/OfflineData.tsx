@@ -1,9 +1,9 @@
+import { Line, RingProgress } from '@ant-design/charts';
 import { Card, Col, Row, Tabs } from 'antd';
-import { RingProgress, Line } from '@ant-design/charts';
-import type { OfflineDataType, DataItem } from '../data.d';
+import type { DataItem, OfflineDataType } from '../data.d';
 
-import NumberInfo from './NumberInfo';
 import styles from '../style.less';
+import NumberInfo from './NumberInfo';
 
 const CustomTab = ({
   data,
@@ -43,9 +43,48 @@ const OfflineData = ({
   offlineChartData: DataItem[];
   handleTabChange: (activeKey: string) => void;
 }) => (
-  <Card loading={loading} className={styles.offlineCard} bordered={false} style={{ marginTop: 32 }}>
-    <Tabs activeKey={activeKey} onChange={handleTabChange}>
-      {offlineData.map((shop) => (
+  <Card
+    loading={loading}
+    className={styles.offlineCard}
+    bordered={false}
+    style={{ marginTop: 32 }}
+  >
+    <Tabs
+      activeKey={activeKey}
+      onChange={handleTabChange}
+      items={
+        offlineData.map((shop) => ({
+          label: (() => <CustomTab data={shop} currentTabKey={activeKey} />)(),
+          key: shop.name,
+          children: (
+            <div style={{ padding: '0 24px' }}>
+              <Line
+                forceFit
+                height={400}
+                data={offlineChartData}
+                responsive
+                xField="date"
+                yField="value"
+                seriesField="type"
+                interactions={[
+                  {
+                    type: 'slider',
+                    cfg: {},
+                  },
+                ]}
+                legend={{
+                  position: 'top-center',
+                }}
+              />
+            </div>
+          ),
+        }))
+        /*   <TabPane tab={<CustomTab data={shop} currentTabKey={activeKey} />} key={shop.name}>
+    
+  </TabPane> */
+      }
+    >
+      {/* {offlineData.map((shop) => (
         <TabPane tab={<CustomTab data={shop} currentTabKey={activeKey} />} key={shop.name}>
           <div style={{ padding: '0 24px' }}>
             <Line
@@ -68,7 +107,7 @@ const OfflineData = ({
             />
           </div>
         </TabPane>
-      ))}
+      ))} */}
     </Tabs>
   </Card>
 );

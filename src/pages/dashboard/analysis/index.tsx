@@ -1,24 +1,24 @@
+import { EllipsisOutlined } from '@ant-design/icons';
+import { GridContent } from '@ant-design/pro-layout';
+import { Col, Dropdown, Menu, Row } from 'antd';
+import type { RangePickerProps } from 'antd/es/date-picker/generatePicker';
+import type { RadioChangeEvent } from 'antd/es/radio';
+import type moment from 'moment';
 import type { FC } from 'react';
 import { Suspense, useState } from 'react';
-import { EllipsisOutlined } from '@ant-design/icons';
-import { Col, Dropdown, Menu, Row } from 'antd';
-import { GridContent } from '@ant-design/pro-layout';
-import type { RadioChangeEvent } from 'antd/es/radio';
-import type { RangePickerProps } from 'antd/es/date-picker/generatePicker';
-import type moment from 'moment';
+import { useRequest } from 'umi';
 import IntroduceRow from './components/IntroduceRow';
+import OfflineData from './components/OfflineData';
+import ProportionSales from './components/ProportionSales';
 import SalesCard from './components/SalesCard';
 import TopSearch from './components/TopSearch';
-import ProportionSales from './components/ProportionSales';
-import OfflineData from './components/OfflineData';
-import { useRequest } from 'umi';
 
-import { fakeChartData } from './service';
 import PageLoading from './components/PageLoading';
 import type { TimeType } from './components/SalesCard';
-import { getTimeDistance } from './utils/utils';
 import type { AnalysisData } from './data.d';
+import { fakeChartData } from './service';
 import styles from './style.less';
+import { getTimeDistance } from './utils/utils';
 
 type RangePickerValue = RangePickerProps<moment.Moment>['value'];
 
@@ -70,7 +70,10 @@ const Analysis: FC<AnalysisProps> = () => {
   if (salesType === 'all') {
     salesPieData = data?.salesTypeData;
   } else {
-    salesPieData = salesType === 'online' ? data?.salesTypeDataOnline : data?.salesTypeDataOffline;
+    salesPieData =
+      salesType === 'online'
+        ? data?.salesTypeDataOnline
+        : data?.salesTypeDataOffline;
   }
 
   const menu = (
@@ -82,7 +85,7 @@ const Analysis: FC<AnalysisProps> = () => {
 
   const dropdownGroup = (
     <span className={styles.iconGroup}>
-      <Dropdown overlay={menu} placement="bottomRight">
+      <Dropdown menu={menu} placement="bottomRight">
         <EllipsisOutlined />
       </Dropdown>
     </span>
@@ -96,7 +99,8 @@ const Analysis: FC<AnalysisProps> = () => {
     setCurrentTabKey(key);
   };
 
-  const activeKey = currentTabKey || (data?.offlineData[0] && data?.offlineData[0].name) || '';
+  const activeKey =
+    currentTabKey || (data?.offlineData[0] && data?.offlineData[0].name) || '';
 
   return (
     <GridContent>

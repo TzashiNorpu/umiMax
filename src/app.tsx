@@ -54,6 +54,8 @@ export const layout: RunTimeLayoutConfig = ({
   initialState,
   setInitialState,
 }) => {
+  console.log('render...');
+
   return {
     rightContentRender: () => <RightContent />,
     disableContentMargin: false,
@@ -62,7 +64,7 @@ export const layout: RunTimeLayoutConfig = ({
     },
     footerRender: () => <Footer />,
     onPageChange: () => {
-      const { location } = history;
+      const { location } = window;
       // 如果没有登录，重定向到 login
       if (!initialState?.currentUser && location.pathname !== loginPath) {
         history.push(loginPath);
@@ -84,21 +86,26 @@ export const layout: RunTimeLayoutConfig = ({
     // 自定义 403 页面
     // unAccessible: <div>unAccessible</div>,
     // 增加一个 loading 的状态
-    childrenRender: (children, props) => {
+    childrenRender: (children) => {
       // if (initialState?.loading) return <PageLoading />;
       return (
         <>
           {children}
-          {!props.location?.pathname?.includes('/login') && (
+          {!window.location?.pathname?.includes('/login') && (
             <SettingDrawer
               disableUrlParams
               enableDarkTheme
               settings={initialState?.settings}
               onSettingChange={(settings) => {
-                setInitialState((preInitialState) => ({
-                  ...preInitialState,
-                  settings,
-                }));
+                console.log('initialState', initialState);
+                console.log('settings', settings);
+                setInitialState((preInitialState) => {
+                  console.log('preInitialState', preInitialState);
+                  return {
+                    ...preInitialState,
+                    settings,
+                  };
+                });
               }}
             />
           )}

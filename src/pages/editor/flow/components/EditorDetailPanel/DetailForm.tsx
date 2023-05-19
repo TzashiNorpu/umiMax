@@ -1,6 +1,6 @@
-import React from 'react';
-import { Card, Input, Select, Form } from 'antd';
+import { Card, Form, Input, Select } from 'antd';
 import { withPropsAPI } from 'gg-editor';
+import React from 'react';
 
 const upperFirst = (str: string) =>
   str.toLowerCase().replace(/( |^)[a-z]/g, (l: string) => l.toUpperCase());
@@ -45,12 +45,13 @@ class DetailForm extends React.Component<DetailFormProps> {
     }, 0);
   };
 
-  handleInputBlur = (type: string) => (e: React.FormEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    this.handleFieldChange({
-      [type]: e.currentTarget.value,
-    });
-  };
+  handleInputBlur =
+    (type: string) => (e: React.FormEvent<HTMLInputElement>) => {
+      e.preventDefault();
+      this.handleFieldChange({
+        [type]: e.currentTarget.value,
+      });
+    };
 
   renderNodeDetail = () => {
     const { label } = this.item.getModel();
@@ -73,7 +74,9 @@ class DetailForm extends React.Component<DetailFormProps> {
           <Input onBlur={this.handleInputBlur('label')} />
         </Item>
         <Item label="Shape" name="shape" {...inlineFormItemLayout}>
-          <Select onChange={(value) => this.handleFieldChange({ shape: value })}>
+          <Select
+            onChange={(value) => this.handleFieldChange({ shape: value })}
+          >
             <Option value="flow-smooth">Smooth</Option>
             <Option value="flow-polyline">Polyline</Option>
             <Option value="flow-polyline-round">Polyline Round</Option>
